@@ -10,8 +10,8 @@ def motion_24_friston(dataframe):
     motion_24_friston:  pandas dataframe including 24 motion parameters
     
     - the first 6 are the motion parameters
-    - the next 6 are the temporal difference of motion parameters ('td' suffix)
-    - the next 12 are the square of the motion parameters the differenced values ('_sqrt' suffix)
+    - the next 6 are the temporal difference of motion parameters ('_td' suffix)
+    - the next 12 are the square of the motion parameters and the differenced values ('_sqrt' suffix)
       
     """
 
