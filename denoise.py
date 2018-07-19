@@ -1,10 +1,19 @@
+# -*- coding: utf-8 -*-
+
+
+"""
+Created on Wed Jul  19 2018
+@author: kfinc
+
+"""
+
+import pandas as pd
+import numpy as np 
+
+
 
 def motion_24_friston(dataframe):
-
-    import pandas as pd
-    import numpy as np 
-
-	
+ 	
     """Simple function that calculates 24 motion parameters from pandas dataframe. 
     
     Parameters
@@ -53,14 +62,11 @@ def scrubbing(fd, thr = 0.5, before = True, after = True):
           
     """
     
-    import pandas as pd
-    import numpy as np
-    
     scrubbing = pd.DataFrame()
     fd.loc[0] = 0
-    fd = confounds_fd.astype(float)
+    fd = fd.astype(float)
     
-    scrub1 = confounds_fd > thr
+    scrub1 = fd > thr
     scrub1 = scrub1.astype(int)
     scrubbing['scrubbing'] = scrub1
     
