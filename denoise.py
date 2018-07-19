@@ -34,3 +34,44 @@ def motion_24_friston(dataframe):
         motion_24_friston[col + '_sqrt'] = sqrt
     
     return motion_24_friston
+
+
+def scrubbing(fd, thr = 0.5, before = True, after = True):
+    
+    """Function that calculates motion outliers (frames with motion above threshold_.
+    
+    Parameters
+    ----------
+    fd:      pandas dataframe including frame-wise displacement (FD)
+    thr:     threshold (default: 0.5)
+    before:  marks frames before outlier datapoint (default: True)
+    after:   marks frames after outlier datapoint (default: True)
+    
+    Returns
+    -------
+    scrubbing:  pandas dataframe including all ourliers datapoints
+          
+    """
+    
+    import pandas as pd
+    import numpy as np
+    
+    scrubbing = pd.DataFrame()
+    fd.loc[0] = 0
+    fd = confounds_fd.astype(float)
+    
+    scrub1 = confounds_fd > thr
+    scrub1 = scrub1.astype(int)
+    scrubbing['scrubbing'] = scrub1
+    
+    if before == True:
+        scrub2 = np.roll(scrubbing['scrubbing'], -1, axis = 0)
+        scrub2[0] = 0
+        scrubbing['scrubbing_bef'] =  scrub2
+        
+    if after == True:
+        scrub3 = np.roll(scrubbing['scrubbing'], 1, axis = 0)
+        scrub3[0] = 0
+        scrubbing['scrubbing_aft'] =  scrub3
+        
+    return scrubbing
