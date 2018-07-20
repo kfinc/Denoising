@@ -9,7 +9,7 @@ Created on Wed Jul  19 2018
 
 import pandas as pd
 import numpy as np 
-
+from sklearn import preprocessing
 
 
 def motion_24_friston(dataframe):
@@ -81,3 +81,28 @@ def scrubbing(fd, thr = 0.5, before = True, after = True):
         scrubbing['scrubbing_aft'] =  scrub3
         
     return scrubbing
+
+
+
+def standardize(dataframe):
+    """
+    Normalizes each column and returns values set to unit variance.
+    
+    Parameters
+    ----------
+    dataframe: pandas dataframe including columns of interest
+    
+    Returns
+    -------
+    dataframe_stand:  pandas dataframe with standarized values
+    
+    
+    """
+    
+    dataframe_stand = pd.DataFrame()
+    val = dataframe.values
+    standardize = preprocessing.StandardScaler()
+    val_scaled = standardize.fit_transform(val)
+    dataframe_stand = pd.DataFrame(val_scaled, columns = dataframe.columns)
+    
+    return dataframe_stand
